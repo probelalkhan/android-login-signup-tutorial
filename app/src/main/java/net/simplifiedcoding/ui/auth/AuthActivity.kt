@@ -1,4 +1,4 @@
-package net.simplifiedcoding.auth
+package net.simplifiedcoding.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

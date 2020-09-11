@@ -3,7 +3,7 @@ package net.simplifiedcoding
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import net.simplifiedcoding.auth.AuthActivity
+import net.simplifiedcoding.ui.auth.AuthActivity
 
 class MainActivity : AppCompatActivity() {
 

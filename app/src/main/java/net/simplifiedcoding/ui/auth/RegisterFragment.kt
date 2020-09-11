@@ -1,4 +1,4 @@
-package net.simplifiedcoding.auth
+package net.simplifiedcoding.ui.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
