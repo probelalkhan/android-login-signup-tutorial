@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import net.simplifiedcoding.network.Resource
-import net.simplifiedcoding.repository.AuthRepository
-import net.simplifiedcoding.responses.LoginResponse
+import net.simplifiedcoding.data.network.Resource
+import net.simplifiedcoding.data.repository.AuthRepository
+import net.simplifiedcoding.data.responses.LoginResponse
 
 class AuthViewModel(
     private val repository: AuthRepository

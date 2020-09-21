@@ -1,4 +1,4 @@
-package net.simplifiedcoding.network
+package net.simplifiedcoding.data.network
 
 import okhttp3.ResponseBody
 

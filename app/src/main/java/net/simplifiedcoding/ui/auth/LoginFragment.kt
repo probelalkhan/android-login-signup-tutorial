@@ -1,17 +1,16 @@
 package net.simplifiedcoding.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import net.simplifiedcoding.R
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import net.simplifiedcoding.databinding.FragmentLoginBinding
-import net.simplifiedcoding.network.AuthApi
-import net.simplifiedcoding.network.Resource
-import net.simplifiedcoding.repository.AuthRepository
+import net.simplifiedcoding.data.network.AuthApi
+import net.simplifiedcoding.data.network.Resource
+import net.simplifiedcoding.data.repository.AuthRepository
 import net.simplifiedcoding.ui.base.BaseFragment
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
@@ -22,7 +21,9 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+                    lifecycleScope.launch {
+                        userPreferences.saveAuthToken(it.value.user.access_token)
+                    }
                 }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(), "Login Failure", Toast.LENGTH_SHORT).show()

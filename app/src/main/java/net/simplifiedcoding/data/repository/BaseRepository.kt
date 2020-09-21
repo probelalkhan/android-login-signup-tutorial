@@ -1,8 +1,8 @@
-package net.simplifiedcoding.repository
+package net.simplifiedcoding.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import net.simplifiedcoding.network.Resource
+import net.simplifiedcoding.data.network.Resource
 import retrofit2.HttpException
 
 abstract class BaseRepository {

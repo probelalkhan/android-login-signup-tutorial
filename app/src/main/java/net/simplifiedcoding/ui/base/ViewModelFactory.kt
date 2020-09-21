@@ -2,8 +2,8 @@ package net.simplifiedcoding.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.simplifiedcoding.repository.AuthRepository
-import net.simplifiedcoding.repository.BaseRepository
+import net.simplifiedcoding.data.repository.AuthRepository
+import net.simplifiedcoding.data.repository.BaseRepository
 import net.simplifiedcoding.ui.auth.AuthViewModel
 import java.lang.IllegalArgumentException
 

@@ -1,6 +1,6 @@
-package net.simplifiedcoding.network
+package net.simplifiedcoding.data.network
 
-import net.simplifiedcoding.responses.LoginResponse
+import net.simplifiedcoding.data.responses.LoginResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

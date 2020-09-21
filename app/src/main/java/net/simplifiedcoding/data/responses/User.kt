@@ -1,4 +1,4 @@
-package net.simplifiedcoding.responses
+package net.simplifiedcoding.data.responses
 
 data class User(
     val access_token: String,

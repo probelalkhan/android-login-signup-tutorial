@@ -1,6 +1,6 @@
-package net.simplifiedcoding.repository
+package net.simplifiedcoding.data.repository
 
-import net.simplifiedcoding.network.AuthApi
+import net.simplifiedcoding.data.network.AuthApi
 
 class AuthRepository(
     private val api: AuthApi
