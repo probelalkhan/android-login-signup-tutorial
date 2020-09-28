@@ -1,15 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="12dp"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                style="@style/TextDefault"
+                android:text="ID" />
+
+            <TextView
+                android:id="@+id/text_view_id"
+                style="@style/TextDefault"
+                tools:text="1" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style="@style/TextDefault"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/text_view_name"
+                style="@style/TextDefault"
+                tools:text="Belal Khan" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style="@style/TextDefault"
+                android:text="Email" />
+
+            <TextView
+                android:id="@+id/text_view_Email"
+                style="@style/TextDefault"
+                tools:text="probelalkhan@gmail.com" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/button_logout"
+        style="@style/ButtonPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Welcome User"
-        android:textSize="32sp" />
+        android:layout_below="@id/table"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Logout" />
 
-</FrameLayout>
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
