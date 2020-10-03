@@ -3,6 +3,7 @@ package net.simplifiedcoding.data.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.simplifiedcoding.data.network.Resource
+import net.simplifiedcoding.data.network.UserApi
 import retrofit2.HttpException
 
 abstract class BaseRepository {
@@ -24,5 +25,9 @@ abstract class BaseRepository {
                 }
             }
         }
+    }
+
+    suspend fun logout(api: UserApi) = safeApiCall {
+        api.logout()
     }
 }

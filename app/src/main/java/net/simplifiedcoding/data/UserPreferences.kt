@@ -2,10 +2,7 @@ package net.simplifiedcoding.data
 
 import android.content.Context
 import androidx.datastore.DataStore
-import androidx.datastore.preferences.Preferences
-import androidx.datastore.preferences.createDataStore
-import androidx.datastore.preferences.edit
-import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.preferences.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -29,6 +26,12 @@ class UserPreferences(
     suspend fun saveAuthToken(authToken: String) {
         dataStore.edit { preferences ->
             preferences[KEY_AUTH] = authToken
+        }
+    }
+
+    suspend fun clear() {
+        dataStore.edit { preferences ->
+            preferences.clear()
         }
     }
 

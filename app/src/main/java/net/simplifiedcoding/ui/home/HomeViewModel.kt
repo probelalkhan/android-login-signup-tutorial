@@ -8,10 +8,11 @@ import kotlinx.coroutines.launch
 import net.simplifiedcoding.data.network.Resource
 import net.simplifiedcoding.data.repository.UserRepository
 import net.simplifiedcoding.data.responses.LoginResponse
+import net.simplifiedcoding.ui.base.BaseViewModel
 
 class HomeViewModel(
     private val repository: UserRepository
-) : ViewModel() {
+) : BaseViewModel(repository) {
 
     private val _user: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
     val user: LiveData<Resource<LoginResponse>>
