@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import net.simplifiedcoding.data.network.Resource
 import net.simplifiedcoding.ui.auth.LoginFragment
-import net.simplifiedcoding.ui.base.BaseFragment
+import net.simplifiedcoding.ui.base.BaseViewModel
+import net.simplifiedcoding.ui.home.HomeActivity
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
     Intent(this, activity).also {
@@ -35,6 +38,12 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
     snackbar.show()
 }
 
+fun Fragment.logout() = lifecycleScope.launch {
+    if (activity is HomeActivity) {
+        (activity as HomeActivity).performLogout()
+    }
+}
+
 fun Fragment.handleApiError(
     failure: Resource.Failure,
     retry: (() -> Unit)? = null
@@ -48,7 +57,7 @@ fun Fragment.handleApiError(
             if (this is LoginFragment) {
                 requireView().snackbar("You've entered incorrect email or password")
             } else {
-                (this as BaseFragment<*, *, *>).logout()
+//                logout()
             }
         }
         else -> {

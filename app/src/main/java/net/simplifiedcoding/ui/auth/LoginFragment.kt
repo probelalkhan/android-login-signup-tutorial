@@ -1,29 +1,33 @@
 package net.simplifiedcoding.ui.auth
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.View
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import net.simplifiedcoding.databinding.FragmentLoginBinding
-import net.simplifiedcoding.data.network.AuthApi
+import net.simplifiedcoding.R
 import net.simplifiedcoding.data.network.Resource
-import net.simplifiedcoding.data.repository.AuthRepository
-import net.simplifiedcoding.ui.base.BaseFragment
+import net.simplifiedcoding.databinding.FragmentLoginBinding
 import net.simplifiedcoding.ui.enable
 import net.simplifiedcoding.ui.handleApiError
 import net.simplifiedcoding.ui.home.HomeActivity
 import net.simplifiedcoding.ui.startNewActivity
 import net.simplifiedcoding.ui.visible
 
-class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
+@AndroidEntryPoint
+class LoginFragment: Fragment(R.layout.fragment_login) {
+
+    private lateinit var binding: FragmentLoginBinding
+    private val viewModel by viewModels<AuthViewModel>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        binding = FragmentLoginBinding.bind(view)
         binding.progressbar.visible(false)
         binding.buttonLogin.enable(false)
 
@@ -32,7 +36,10 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
             when (it) {
                 is Resource.Success -> {
                     lifecycleScope.launch {
-                        viewModel.saveAuthToken(it.value.user.access_token!!)
+                        viewModel.saveAccessTokens(
+                            it.value.user.access_token!!,
+                            it.value.user.refresh_token!!
+                        )
                         requireActivity().startNewActivity(HomeActivity::class.java)
                     }
                 }
@@ -45,7 +52,6 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
             binding.buttonLogin.enable(email.isNotEmpty() && it.toString().isNotEmpty())
         }
 
-
         binding.buttonLogin.setOnClickListener {
             login()
         }
@@ -56,15 +62,4 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         val password = binding.editTextTextPassword.text.toString().trim()
         viewModel.login(email, password)
     }
-
-    override fun getViewModel() = AuthViewModel::class.java
-
-    override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentLoginBinding.inflate(inflater, container, false)
-
-    override fun getFragmentRepository() =
-        AuthRepository(remoteDataSource.buildApi(AuthApi::class.java), userPreferences)
-
 }

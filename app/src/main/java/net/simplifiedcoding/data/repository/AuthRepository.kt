@@ -2,11 +2,12 @@ package net.simplifiedcoding.data.repository
 
 import net.simplifiedcoding.data.UserPreferences
 import net.simplifiedcoding.data.network.AuthApi
+import javax.inject.Inject
 
-class AuthRepository(
+class AuthRepository @Inject constructor(
     private val api: AuthApi,
     private val preferences: UserPreferences
-) : BaseRepository(){
+) : BaseRepository(api) {
 
     suspend fun login(
         email: String,
@@ -15,8 +16,8 @@ class AuthRepository(
         api.login(email, password)
     }
 
-    suspend fun saveAuthToken(token: String){
-        preferences.saveAuthToken(token)
+    suspend fun saveAccessTokens(accessToken: String, refreshToken: String) {
+        preferences.saveAccessTokens(accessToken, refreshToken)
     }
 
 }

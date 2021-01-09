@@ -10,6 +10,6 @@ abstract class BaseViewModel(
     private val repository: BaseRepository
 ) : ViewModel() {
 
-    suspend fun logout(api: UserApi) = withContext(Dispatchers.IO) { repository.logout(api) }
+    suspend fun logout() = withContext(Dispatchers.IO) { repository.logout() }
 
 }

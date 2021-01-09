@@ -1,28 +1,28 @@
 package net.simplifiedcoding.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import dagger.hilt.android.AndroidEntryPoint
+import net.simplifiedcoding.R
 import net.simplifiedcoding.data.network.Resource
-import net.simplifiedcoding.data.network.UserApi
-import net.simplifiedcoding.data.repository.UserRepository
-import net.simplifiedcoding.data.responses.LoginResponse
 import net.simplifiedcoding.data.responses.User
 import net.simplifiedcoding.databinding.FragmentHomeBinding
-import net.simplifiedcoding.ui.base.BaseFragment
+import net.simplifiedcoding.ui.handleApiError
+import net.simplifiedcoding.ui.logout
 import net.simplifiedcoding.ui.visible
 
+@AndroidEntryPoint
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
-class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserRepository>() {
-
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel by viewModels<HomeViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding = FragmentHomeBinding.bind(view)
         binding.progressbar.visible(false)
 
         viewModel.getUser()
@@ -35,6 +35,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserReposi
                 }
                 is Resource.Loading -> {
                     binding.progressbar.visible(true)
+                }
+                is Resource.Failure -> {
+                    handleApiError(it)
                 }
             }
         })
@@ -50,18 +53,5 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserReposi
             textViewName.text = user.name
             textViewEmail.text = user.email
         }
-    }
-
-    override fun getViewModel() = HomeViewModel::class.java
-
-    override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentHomeBinding.inflate(inflater, container, false)
-
-    override fun getFragmentRepository(): UserRepository {
-        val token = runBlocking { userPreferences.authToken.first() }
-        val api = remoteDataSource.buildApi(UserApi::class.java, token)
-        return UserRepository(api)
     }
 }
