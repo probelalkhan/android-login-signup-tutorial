@@ -12,7 +12,6 @@ import net.simplifiedcoding.data.repository.AuthRepository
 import net.simplifiedcoding.data.repository.UserRepository
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppModule {

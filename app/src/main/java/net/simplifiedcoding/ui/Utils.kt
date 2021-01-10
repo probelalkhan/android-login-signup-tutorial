@@ -9,7 +9,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import net.simplifiedcoding.data.network.Resource
 import net.simplifiedcoding.ui.auth.LoginFragment
-import net.simplifiedcoding.ui.base.BaseViewModel
 import net.simplifiedcoding.ui.home.HomeActivity
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
@@ -57,7 +56,7 @@ fun Fragment.handleApiError(
             if (this is LoginFragment) {
                 requireView().snackbar("You've entered incorrect email or password")
             } else {
-//                logout()
+                logout()
             }
         }
         else -> {
