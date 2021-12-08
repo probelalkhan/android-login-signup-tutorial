@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import net.simplifiedcoding.R
 import net.simplifiedcoding.data.network.Resource
 import net.simplifiedcoding.databinding.FragmentLoginBinding
+import net.simplifiedcoding.ui.base.BaseFragment
 import net.simplifiedcoding.ui.enable
 import net.simplifiedcoding.ui.handleApiError
 import net.simplifiedcoding.ui.home.HomeActivity
@@ -20,14 +21,15 @@ import net.simplifiedcoding.ui.visible
 
 
 @AndroidEntryPoint
-class LoginFragment: Fragment(R.layout.fragment_login) {
+class LoginFragment: BaseFragment<FragmentLoginBinding>(
+    FragmentLoginBinding::inflate
+) {
 
-    private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<AuthViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        binding = FragmentLoginBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+
         binding.progressbar.visible(false)
         binding.buttonLogin.enable(false)
 
